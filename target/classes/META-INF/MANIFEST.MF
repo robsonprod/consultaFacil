@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: consultafacil-api
+Implementation-Version: 1.0.0-SNAPSHOT
+Built-By: abutre
+Implementation-Vendor-Id: com.consultafacil-api
+Build-Jdk: 1.8.0_222
+Implementation-URL: http://projects.spring.io/spring-boot/consultafaci
+ l-api/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
