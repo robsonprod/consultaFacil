@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "medico")
-public class Medico extends Pessoa{
+public class Medico extends Usuario{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
