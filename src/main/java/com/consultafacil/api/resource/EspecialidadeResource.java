@@ -22,22 +22,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.consultafacil.api.model.Categoria;
-import com.consultafacil.api.repository.CategoriaRepository;
-import com.consultafacil.api.service.CategoriaService;
+import com.consultafacil.api.model.Especialidade;
+import com.consultafacil.api.repository.EspecialidadeRepository;
+import com.consultafacil.api.service.EspecialidadeService;
 
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaResource {
+public class EspecialidadeResource {
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private EspecialidadeRepository categoriaRepository;
 	
 	@Autowired
-	private CategoriaService categoriaService;
+	private EspecialidadeService categoriaService;
 
 	@GetMapping
-	public List<Categoria> listar() {
+	public List<Especialidade> listar() {
 		return categoriaRepository.findAll();
 	}
 
@@ -52,8 +52,8 @@ public class CategoriaResource {
 //	recuperando uri
 	@PostMapping
 //	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-		Categoria categoriaSalva = categoriaRepository.save(categoria);
+	public ResponseEntity<Especialidade> criar(@Valid @RequestBody Especialidade categoria, HttpServletResponse response) {
+		Especialidade categoriaSalva = categoriaRepository.save(categoria);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
 				.path("/{codigo}").buildAndExpand(categoriaSalva.getCodigo()).toUri();
@@ -65,7 +65,7 @@ public class CategoriaResource {
 
 	@GetMapping("/{cod}")
 	public ResponseEntity<? extends Object> buscarPeloCodigo(@PathVariable Long cod) {
-		Categoria categoria = categoriaRepository.findOne(cod);
+		Especialidade categoria = categoriaRepository.findOne(cod);
 		return categoria != null 
 				? ResponseEntity.ok(categoria) 
 						: ResponseEntity.notFound().build();
@@ -79,8 +79,8 @@ public class CategoriaResource {
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria){
-		Categoria categoriaSalva = categoriaService.atualizar(codigo, categoria);
+	public ResponseEntity<Especialidade> atualizar(@PathVariable Long codigo, @Valid @RequestBody Especialidade categoria){
+		Especialidade categoriaSalva = categoriaService.atualizar(codigo, categoria);
 		return ResponseEntity.ok(categoriaSalva);
 	}
 	

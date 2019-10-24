@@ -5,30 +5,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.consultafacil.api.model.Categoria;
-import com.consultafacil.api.repository.CategoriaRepository;
+import com.consultafacil.api.model.Especialidade;
+import com.consultafacil.api.repository.EspecialidadeRepository;
 
 @Service
-public class CategoriaService {
+public class EspecialidadeService {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private EspecialidadeRepository categoriaRepository;
 
-	public Categoria atualizar(Long codigo, Categoria categoria) {
-		Categoria categoriaSalva = buscarCategoriaPorCodigo(codigo);
+	public Especialidade atualizar(Long codigo, Especialidade categoria) {
+		Especialidade categoriaSalva = buscarCategoriaPorCodigo(codigo);
 		
 		BeanUtils.copyProperties(categoria, categoriaSalva, "codigo");
 		return categoriaRepository.save(categoriaSalva);
 	}
 	
 	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
-		Categoria categoriaSalva = buscarCategoriaPorCodigo(codigo);
-		categoriaSalva.setAtivo(ativo);
+		Especialidade categoriaSalva = buscarCategoriaPorCodigo(codigo);
 		categoriaRepository.save(categoriaSalva);
 	}
 
-	private Categoria buscarCategoriaPorCodigo(Long codigo) {
-		Categoria categoriaSalva = categoriaRepository.findOne(codigo);
+	public Especialidade buscarCategoriaPorCodigo(Long codigo) {
+		Especialidade categoriaSalva = categoriaRepository.findOne(codigo);
 
 		if(categoriaSalva == null) {
 			throw new EmptyResultDataAccessException(1);

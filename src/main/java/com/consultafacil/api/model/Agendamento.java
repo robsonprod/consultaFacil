@@ -1,15 +1,19 @@
 package com.consultafacil.api.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "agendamento")
@@ -19,8 +23,8 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "data_consulta_marcada")
-	private LocalDate dataConsultaMarcada;
+	@Column(name = "data_consulta_criada")
+	private LocalDate dataConsultaCriada;
 	
 	@Column(name = "data_consulta")
 	private LocalDate dataConsulta;
@@ -28,6 +32,18 @@ public class Agendamento {
 	@ManyToOne
 	@JoinColumn(name = "codigo_medico")
 	private Medico medico;
+	
+	@NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especialidade_id")
+    private Especialidade especialidade;
+    
+    @Column
+    private BigDecimal valor;
 
 	public Long getCodigo() {
 		return codigo;
@@ -38,11 +54,11 @@ public class Agendamento {
 	}
 
 	public LocalDate getDataConsultaMarcada() {
-		return dataConsultaMarcada;
+		return dataConsultaCriada;
 	}
 
 	public void setDataConsultaMarcada(LocalDate dataConsultaMarcada) {
-		this.dataConsultaMarcada = dataConsultaMarcada;
+		this.dataConsultaCriada = dataConsultaMarcada;
 	}
 
 	public LocalDate getDataConsulta() {
@@ -61,29 +77,28 @@ public class Agendamento {
 		this.medico = medico;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Agendamento other = (Agendamento) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 	
 }
